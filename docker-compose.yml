@@ -1,14 +1,35 @@
 version: "3.9"
 services:
-  postgres:
-    image: postgres:14.5
-    environment:
-      POSTGRES_DB: "SHUTOVA_204"
-      POSTGRES_USER: "SHUTOVA_204"
-      POSTGRES_PASSWORD: "SHUTOVA_204"
-      PGDATA: "/var/lib/postgresql/data/pgdata"
-    volumes:
-      - ./docker/db/scripts:/docker-entrypoint-initdb.d/
-      - ./docker/db/data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+   library:
+     image: postgres:14.5
+     environment:
+       POSTGRES_USER: "shutova_204"
+       POSTGRES_PASSWORD: "shutova_204"
+       POSTGRES_DB: "shutova_204"
+       PGDATA: /var/lib/postgresql/data/library_pgdata
+     ports:
+       - "5432:5432"
+     volumes:
+       - ./docker/db/scripts/library.sql:/docker-entrypoint-initdb.d/library.sql
+   train_shedule:
+     image: postgres:14.5
+     environment:
+       POSTGRES_USER: "shutova_204"
+       POSTGRES_PASSWORD: "shutova_204"
+       POSTGRES_DB: "shutova_204"
+       PGDATA: /var/lib/postgresql/data/train_shedule_pgdata
+     ports:
+       - "5433:5432"
+     volumes:
+       - ./docker/db/scripts/train_shedule.sql:/docker-entrypoint-initdb.d/train_shedule.sql
+   treatment_station:
+     image: postgres:14.5
+     environment:
+       POSTGRES_USER: "shutova_204"
+       POSTGRES_PASSWORD: "shutova_204"
+       POSTGRES_DB: "shutova_204"
+       PGDATA: /var/lib/postgresql/data/treatment_station_pgdata
+     ports:
+       - "5434:5432"
+     volumes:
+       - ./docker/db/scripts/treatment_station.sql:/docker-entrypoint-initdb.d/treatment_station.sql
